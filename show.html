@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Freunde Karussell</title>
+<style>
+body {
+    margin: 0;
+    background: #111;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+}
+
+.carousel-container {
+    perspective: 1000px;
+    margin-top: 100px;
+}
+
+.carousel {
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotate 15s infinite linear;
+}
+
+.carousel img {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    left: 25px;
+    top: 25px;
+}
+
+.quote {
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 18px;
+}
+
+.empty {
+    margin-top: 50px;
+    font-size: 20px;
+    color: #ccc;
+}
+
+@keyframes rotate {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>👥 Meine Freunde</h1>
+
+<div class="carousel-container">
+    <div class="carousel" id="carousel"></div>
+</div>
+
+<div class="quote" id="quote"></div>
+
+<div class="empty" id="emptyMessage"></div>
+
+<script>
+const entries = JSON.parse(localStorage.getItem("entries")) || [];
+const carousel = document.getElementById("carousel");
+const quote = document.getElementById("quote");
+const emptyMessage = document.getElementById("emptyMessage");
+
+// 👉 Wenn keine Einträge vorhanden sind
+if (entries.length === 0) {
+    emptyMessage.innerText = "😢 Noch keine Einträge vorhanden";
+} else {
+
+    const angle = 360 / entries.length;
+
+    entries.forEach((entry, i) => {
+        const img = document.createElement("img");
+        img.src = entry.image;
+
+        const rotation = angle * i;
+        img.style.transform = `rotateY(${rotation}deg) translateZ(400px)`;
+
+        carousel.appendChild(img);
+    });
+
+    // Sprüche rotieren lassen
+    let current = 0;
+
+    function updateQuote() {
+        quote.innerText = entries[current].quote;
+        current = (current + 1) % entries.length;
+    }
+
+    setInterval(updateQuote, 3000);
+    updateQuote();
+}
+</script>
+
+</body>
+</html>
