@@ -2,60 +2,30 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gästebuch Eintrag</title>
 <style>
-body {
-    font-family: Arial;
-    text-align: center;
-    background: #f4f4f4;
-    margin: 0;
-    padding: 10px;
-}
-
-h1 {
-    font-size: 22px;
-}
+body { font-family: Arial; text-align: center; background: #f4f4f4; }
 
 form {
     background: white;
-    padding: 15px;
-    margin: 20px auto;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 50px auto;
+    width: 300px;
+    border-radius: 10px;
 }
 
 input, textarea {
-    width: 100%;
-    margin: 8px 0;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-textarea {
-    min-height: 80px;
-    resize: none;
+    width: 90%;
+    margin: 5px;
+    padding: 8px;
 }
 
 button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 10px;
+    padding: 10px;
     background: #3498db;
     color: white;
     border: none;
-    font-size: 16px;
-    border-radius: 8px;
     cursor: pointer;
-}
-
-button:active {
-    background: #2980b9;
 }
 </style>
 </head>
@@ -79,14 +49,8 @@ let entries = JSON.parse(localStorage.getItem("entries")) || [];
 document.getElementById("guestForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const file = document.getElementById("image").files[0];
-
-    if (!file) {
-        alert("Bitte wähle ein Bild aus!");
-        return;
-    }
-
     const reader = new FileReader();
+    const file = document.getElementById("image").files[0];
 
     reader.onload = function() {
         const entry = {
@@ -100,11 +64,11 @@ document.getElementById("guestForm").addEventListener("submit", function(e) {
         entries.push(entry);
         localStorage.setItem("entries", JSON.stringify(entries));
 
-        // Direkt weiterleiten – funktioniert zuverlässig auf iPhone
+        // 👉 Weiterleitung zur Anzeige-Seite
         window.location.href = "show.html";
     };
 
-    reader.readAsDataURL(file);
+    if (file) reader.readAsDataURL(file);
 });
 </script>
 
