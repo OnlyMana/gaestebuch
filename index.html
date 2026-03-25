@@ -2,7 +2,12 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
+
+<!-- ✅ WICHTIG: verhindert das Rauszoomen -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Gästebuch Eintrag</title>
+
 <style>
 body {
     font-family: Arial;
@@ -30,7 +35,7 @@ input, textarea {
     width: 100%;
     margin: 8px 0;
     padding: 12px;
-    font-size: 16px; /* wichtig gegen Zoom auf iPhone */
+    font-size: 16px; /* verhindert Zoom auf iPhone */
     border-radius: 8px;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -50,6 +55,7 @@ button {
     border: none;
     font-size: 16px;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 button:active {
@@ -92,7 +98,6 @@ document.getElementById("guestForm").addEventListener("submit", function(e) {
         entries.push(entry);
         localStorage.setItem("entries", JSON.stringify(entries));
 
-        // 👉 Weiterleitung zur Anzeige-Seite
         window.location.href = "show.html";
     };
 
