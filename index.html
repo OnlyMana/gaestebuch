@@ -4,28 +4,56 @@
 <meta charset="UTF-8">
 <title>Gästebuch Eintrag</title>
 <style>
-body { font-family: Arial; text-align: center; background: #f4f4f4; }
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 22px;
+}
 
 form {
     background: white;
-    padding: 20px;
-    margin: 50px auto;
-    width: 300px;
-    border-radius: 10px;
+    padding: 15px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 input, textarea {
-    width: 90%;
-    margin: 5px;
-    padding: 8px;
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px;
+    font-size: 16px; /* wichtig gegen Zoom auf iPhone */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 80px;
+    resize: none;
 }
 
 button {
-    padding: 10px;
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
     background: #3498db;
     color: white;
     border: none;
-    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+button:active {
+    background: #2980b9;
 }
 </style>
 </head>
