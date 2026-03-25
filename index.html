@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- ✅ WICHTIG: verhindert das Rauszoomen -->
+<!-- ✅ verhindert das Rauszoomen -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Gästebuch Eintrag</title>
@@ -83,9 +83,14 @@ let entries = JSON.parse(localStorage.getItem("entries")) || [];
 document.getElementById("guestForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const reader = new FileReader();
     const file = document.getElementById("image").files[0];
 
+    if (!file) {
+        alert("Bitte wähle ein Bild aus!");
+        return;
+    }
+
+    const reader = new FileReader();
     reader.onload = function() {
         const entry = {
             name: document.getElementById("name").value,
@@ -98,10 +103,13 @@ document.getElementById("guestForm").addEventListener("submit", function(e) {
         entries.push(entry);
         localStorage.setItem("entries", JSON.stringify(entries));
 
-        window.location.href = "show.html";
+        // kleiner Timeout für iOS, damit Redirect zuverlässig funktioniert
+        setTimeout(() => {
+            window.location.href = "show.html";
+        }, 50);
     };
 
-    if (file) reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 });
 </script>
 
