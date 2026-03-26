@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">  
 <title>Freunde Karussell</title>
+
 <style>
 body {
     margin: 0;
@@ -45,12 +46,27 @@ body {
     transition: transform 1s;
 }
 
+/* 🔥 Neue Info-Box */
+.info {
+    margin-top: 20px;
+}
+
+.name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.hobbies {
+    font-size: 14px;
+    color: #aaa;
+}
+
 .quote {
-    margin-top: 15px;
+    margin-top: 10px;
     font-style: italic;
     font-size: 18px;
     padding: 0 10px;
-    min-height: 48px; /* Platz für Text */
+    min-height: 48px;
 }
 
 .empty {
@@ -69,7 +85,11 @@ body {
     <div class="carousel" id="carousel"></div>
 </div>
 
-<div class="quote" id="quote"></div>
+<div class="info">
+    <div class="name" id="name"></div>
+    <div class="hobbies" id="hobbies"></div>
+    <div class="quote" id="quote"></div>
+</div>
 
 <div class="empty" id="emptyMessage"></div>
 
@@ -77,6 +97,8 @@ body {
 const entries = JSON.parse(localStorage.getItem("entries")) || [];
 const carousel = document.getElementById("carousel");
 const quote = document.getElementById("quote");
+const nameEl = document.getElementById("name");
+const hobbiesEl = document.getElementById("hobbies");
 const emptyMessage = document.getElementById("emptyMessage");
 
 if(entries.length === 0){
@@ -88,7 +110,10 @@ if(entries.length === 0){
 
     entries.forEach((entry, i) => {
         const img = document.createElement("img");
-        img.src = entry.image;
+
+        // ✅ Fallback Bild wenn keins vorhanden
+        img.src = entry.image || "https://via.placeholder.com/300x300?text=Kein+Bild";
+
         carousel.appendChild(img);
         imgElements.push(img);
     });
@@ -100,7 +125,12 @@ if(entries.length === 0){
             const rotation = angle * (i - index);
             img.style.transform = `rotateY(${rotation}deg) translateZ(400px) translate(-50%, -50%)`;
         });
-        quote.innerText = entries[index].quote;
+
+        // ✅ Texte setzen
+        const entry = entries[index];
+        nameEl.innerText = entry.name + " " + (entry.lastname || "");
+        hobbiesEl.innerText = entry.hobbies ? "Hobbys: " + entry.hobbies : "";
+        quote.innerText = entry.quote;
     }
 
     showEntry(current);
