@@ -1,76 +1,48 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-<meta charset="UTF-8">
-<title>Gästebuch Eintrag</title>
-<style>
-body { font-family: Arial; text-align: center; background: #f4f4f4; }
+    <meta charset="UTF-8">
+    <title>Gästebuch Eintrag</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: #f4f4f4;
+        }
 
-form {
-    background: white;
-    padding: 20px;
-    margin: 50px auto;
-    width: 300px;
-    border-radius: 10px;
-}
+        form {
+            background: white;
+            padding: 20px;
+            margin: 50px auto;
+            width: 300px;
+            border-radius: 10px;
+        }
 
-input, textarea {
-    width: 90%;
-    margin: 5px;
-    padding: 8px;
-}
+        input,
+        textarea {
+            width: 90%;
+            margin: 5px;
+            padding: 8px;
+        }
 
-button {
-    padding: 10px;
-    background: #3498db;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-</style>
+        button {
+            padding: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-
-<h1>📖 Gästebuch</h1>
-
-<form id="guestForm">
-    <input type="text" placeholder="Name" id="name" required><br>
-    <input type="text" placeholder="Nachname" id="lastname"><br>
-    <input type="text" placeholder="Hobbys" id="hobbies"><br>
-    <textarea placeholder="Lieblingsspruch" id="quote" required></textarea><br>
-    <input type="file" id="image" accept="image/*" required><br>
-    <button type="submit">Speichern</button>
-</form>
-
-<script>
-let entries = JSON.parse(localStorage.getItem("entries")) || [];
-
-document.getElementById("guestForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const reader = new FileReader();
-    const file = document.getElementById("image").files[0];
-
-    reader.onload = function() {
-        const entry = {
-            name: document.getElementById("name").value,
-            lastname: document.getElementById("lastname").value,
-            hobbies: document.getElementById("hobbies").value,
-            quote: document.getElementById("quote").value,
-            image: reader.result
-        };
-
-        entries.push(entry);
-        localStorage.setItem("entries", JSON.stringify(entries));
-
-        // 👉 Weiterleitung zur Anzeige-Seite
-        window.location.href = "show.html";
-    };
-
-    if (file) reader.readAsDataURL(file);
-});
-</script>
-
+    <h1>📖 Gästebuch</h1>
+    <form id="guestForm"> <input type="text" placeholder="Name" id="name" required><br> <input type="text"
+            placeholder="Nachname" id="lastname"><br> <input type="text" placeholder="Hobbys" id="hobbies"><br>
+        <textarea placeholder="Lieblingsspruch" id="quote" required></textarea><br> <input type="file" id="image"
+            accept="image/*" required><br> <button type="submit">Speichern</button> </form>
+    <script> let entries = JSON.parse(localStorage.getItem("entries")) || []; document.getElementById("guestForm").addEventListener("submit", function (e) { e.preventDefault(); const reader = new FileReader(); const file = document.getElementById("image").files[0]; reader.onload = function () { const entry = { name: document.getElementById("name").value, lastname: document.getElementById("lastname").value, hobbies: document.getElementById("hobbies").value, quote: document.getElementById("quote").value, image: reader.result }; entries.push(entry); localStorage.setItem("entries", JSON.stringify(entries)); // 👉 Weiterleitung zur Anzeige-Seite window.location.href = "show.html"; }; if (file) reader.readAsDataURL(file); }); </script>
 </body>
+
 </html>
